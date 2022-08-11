@@ -72,3 +72,71 @@ const notPopularJobs: Job = null;
 
 let page: string = '44';
 let numericPage: number = page as unknown as number;
+
+// Classes
+
+interface PersonInterface {
+    getFullName(): string;
+}
+class Person {
+    private firstName: string;
+    private lastName: string;
+    readonly dateOfBirth: Date;
+    static readonly maxAge = 120;
+
+    constructor(firstName: string, lastName: string, dateOfBirth: Date) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    getFullName = (): string => {
+        return 'The name is ' + this.firstName + ' ' + this.lastName;
+    }
+}
+
+class Jedi extends Person {}
+
+const person0 = new Person('Jon', 'Snow', new Date('12/26/1986'));
+console.log(person0.getFullName());
+
+// Generics
+
+const addId = <T extends object>(obj: T) => {
+    const id = Math.random().toString(16);
+    return {
+        ...obj,
+        id
+    };
+};
+
+interface HeroInterface<T, V> {
+    name: string;
+    misc: T;
+    city: V;
+}
+
+const hero0: HeroInterface<{powers: string}, string> = {
+    name: 'Batman',
+    misc: {
+        powers: 'intellect'
+    },
+    city: 'Gotham'
+};
+
+const hero1: HeroInterface<string[], string> = {
+    name: 'Spider-Man',
+    misc: ['Avengers'],
+    city: 'New York'
+}
+
+const result= addId(hero0);
+console.log( 'result: ', result );
+
+// Enums
+
+enum Status {
+    NotStarted,
+    InProgress,
+    Done
+}
